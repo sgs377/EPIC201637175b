@@ -1,0 +1,40 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from astropy.io import fits
+
+    
+hdulist = fits.open('/Users/scottSinger/Documents/HoggResearch/data/ktwo201637175-c01_lpd-lc.fits')
+tableData = hdulist[1].data
+
+x_BJD = range(4022)    # x axis 
+y_FLUX = range(4022)   # y axis
+y_relFlux = range(4022)# other y axis 
+
+
+for i in range(4022):  # fill in times of each measurement, 'i' is each row, '[1]' is position of time in TARGETTABLES row
+    x_BJD[i] = tableData[i][1]
+    
+
+for j in range(4022):  # fill in flux measurement, '[6]' is pos of flux in TARGETTABLES row, which is itself an array of various aperture sizes
+    y_FLUX[j] = tableData[j][6][0]    # third index is aperture size, median aperture size = 3.0, [5]
+
+# find median.  
+unsortFlux = range(4022)
+for i in range(4022):
+     unsortFlux[i] = y_FLUX[i]
+sortFlux = np.sort(unsortFlux)
+median = sortFlux[2011]
+
+# relative flux = measured / median
+for index in range(4022):
+    y_relFlux[index] = y_FLUX[index]/median
+
+
+    
+#plt.plot(x_BJD, y_FLUX)
+plt.plot(x_BJD, y_relFlux)
+plt.title('EPIC 201637175b')
+plt.xlabel('BJD - 2454833')
+#plt.ylabel('Flux')
+plt.ylabel('Relative flux')
+plt.show()
