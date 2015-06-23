@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from astropy.io import fits
 
+# K2 Campaign 1 planet EPIC 201637175b
+
     
 hdulist = fits.open('/Users/scottSinger/Documents/HoggResearch/data/ktwo201637175-c01_lpd-lc.fits')
 tableData = hdulist[1].data
@@ -38,3 +40,16 @@ plt.xlabel('BJD - 2454833')
 #plt.ylabel('Flux')
 plt.ylabel('Relative flux')
 plt.show()
+
+
+#print(hdulist[1].header)
+#print('%.4f' % tableData[0][1])
+#hdulist.info()
+#print(tableData[0])
+#print("--------------------------------------------------------------------------------------------")
+#print(tableData[1])
+#print("--------------------------------------------------------------------------------------------")
+#print(tableData['flux'])
+
+
+    
